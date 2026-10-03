@@ -1,0 +1,16 @@
+{% extends 'app.html' %}
+
+{% block content %}
+<div class="container" xmlns="http://www.w3.org/1999/html">
+    <div class="sub-container">
+        <h1 class="text-center marginb-5">Upload Your File:</h1>
+        <h3 class="text-center marginb-5">( only .txt, .pdf & .docx file extensions allowed)</h3>
+        <form class="form" method="post" enctype="multipart/form-data">
+            <span class="name" id="file-name"></span>
+            <button type="button" class="file-input" onclick="openFileDialogue()">Choose File</button>
+            <input hidden id="file-input" type="file" name="file" accept=".txt,.pdf,.docx">
+            <input class="upload" id="upload" type="submit" value="Upload">
+        </form>
+    </div>
+</div>
+{% endblock %}

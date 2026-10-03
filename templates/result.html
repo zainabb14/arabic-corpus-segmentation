@@ -1,0 +1,36 @@
+{% extends 'app.html' %}
+
+{% block content %}
+<div class="results_container">
+<h1 class="heading">Segmentation Results</h1>
+    <ul>
+        {% for result in results %}
+            <li>
+                {% if result.same_flag == 1 %}
+                   <span class="word">{{ result.word }}</span>: word of root <span>{{result.root}}</span> and segmented into <span>"{{ result.camel_segmented }}"</span> using 2 tools.
+                {% elif not result.pyaramorph_segmented %}
+                   <span class="word">{{ result.word }}</span>: word of root <span>{{result.root}}</span> and segmented into <span>"{{ result.camel_segmented }}"</span> using 1 tool.
+                {% else %}
+                    <span class="word">{{ result.word }}</span>:  word of root <span>{{result.root}}</span> and segmented into <span>"{{ result.camel_segmented }}"</span> and <span>"{{ result.pyaramorph_segmented }}"</span>.
+                    <br>
+                <p>
+                    {% if result.camel_confidence == result.pyaramorph_confidence %}
+                        {% if result.camel_confidence > 1 %}
+                            <span>Analysis</span>: Both can be right.
+                        {% else %}
+                            <span>Analysis</span>: Both can have mistakes.
+                        {% endif %}
+                    {% else %}
+                        {% if result.camel_confidence > result.pyaramorph_confidence %}
+                            <span>Analysis</span>: Expected <span>"{{ result.camel_segmented }}"</span> to be right.
+                        {% else %}
+                            <span>Analysis</span>: Expected <span>"{{ result.pyaramorph_segmented }}"</span> to be right.
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
